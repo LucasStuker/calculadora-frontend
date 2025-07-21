@@ -33,8 +33,6 @@ Este projeto é o frontend da Calculadora de Comissões, uma ferramenta interna 
 
 ## 📸 Preview da Aplicação
 
-_(Adicione aqui um GIF ou screenshot da aplicação quando estiver mais avançada)_
-
 ![Placeholder para a imagem da aplicação](https://i.imgur.com/g8L8d9j.png)
 
 ---
