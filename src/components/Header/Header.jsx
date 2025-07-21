@@ -1,14 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
-
+import logoPraiastur from "../../assets/Logo-Branca.png";
 const Header = () => {
   return (
-    <header className="app-header">
-      <div className="Logo">
-        <Link to="/">Calculadora Praiastur</Link>
+    <header className="site-header">
+      <div className="top-bar">
+        <Link to="/">
+          <img src={logoPraiastur} alt="Praiastur" Logo className="logo" />
+        </Link>
       </div>
-      <nav>{/* <Link to="/relatorios">Relatórios</Link> */}</nav>
+      <div className="main-header">
+        <h1>Simulador de Comissão</h1>
+      </div>
     </header>
   );
 };

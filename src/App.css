@@ -1,21 +1,11 @@
-/* src/index.css - Versão Limpa e Neutra */
-
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  /* Um fundo cinza bem claro, mais suave que o branco puro */
-  background-color: #f4f4f9;
-
-  /* Uma cor de texto padrão mais escura */
-  color: #333;
+/* src/App.css */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ocupa no mínimo 100% da altura da tela */
 }
 
-/* Um reset básico para garantir consistência */
-* {
-  box-sizing: border-box;
+.main-content {
+  flex: 1;
+  padding: 20px 40px;
 }

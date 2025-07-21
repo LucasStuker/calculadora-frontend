@@ -1,8 +1,36 @@
-.app-header {
-  background-color: #282c34;
-  padding: 20px 40px;
+.site-header .top-bar {
+  background-color: #f26522; 
+  padding: 15px 0; 
   display: flex;
-  justify-content: space-between;
+
   align-items: center;
+  position: relative; 
+  min-height: 80px; 
+}
+
+.site-header .logo-link {
+  left: 40px; 
+  top: 50%; 
+  transform: translateY(
+    -50%
+  ); 
+}
+
+.site-header .logo {
+  height: 80px;
+  width: auto;
+  display: block;
+}
+
+.site-header .main-header {
+  background-color: #f26522;
+  padding: 15px 40px;
+  text-align: center;
+}
+
+.site-header .main-header h1 {
   color: white;
+  font-size: 1.8rem;
+  margin: 0;
+  font-weight: bold;
 }
