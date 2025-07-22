@@ -1,5 +1,5 @@
 .calculadora-container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 2rem;
   background-color: #ffffff;
@@ -61,4 +61,37 @@
 
 .submit-btn:hover {
   background-color: #d8591e;
+}
+@media (max-width: 768px) {
+  .calculadora-container {
+    
+    padding: 1.5rem 1rem;
+    margin: 1rem;
+    box-shadow: none; /
+  }
+
+  .commission-form {
+   
+    gap: 1rem;
+  }
+
+  .calculadora-container h2 {
+    font-size: 1rem; 
+  }
+
+  .summary-grid {
+    padding: 1rem;
+    grid-template-columns: 1fr; 
+  }
+
+  .table-title {
+    font-size: 1.2rem; 
+  }
+
+  
+  th,
+  td {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+  }
 }

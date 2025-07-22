@@ -10,9 +10,6 @@ const Header = () => {
           <img src={logoPraiastur} alt="Praiastur" Logo className="logo" />
         </Link>
       </div>
-      <div className="main-header">
-        <h1>Simulador de Comissão</h1>
-      </div>
     </header>
   );
 };

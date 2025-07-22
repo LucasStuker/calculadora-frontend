@@ -1,19 +1,17 @@
 .site-header .top-bar {
-  background-color: #f26522; 
-  padding: 15px 0; 
+  background-color: #f26522;
+  padding: 15px 0;
   display: flex;
 
   align-items: center;
-  position: relative; 
-  min-height: 80px; 
+  position: relative;
+  min-height: 80px;
 }
 
 .site-header .logo-link {
-  left: 40px; 
-  top: 50%; 
-  transform: translateY(
-    -50%
-  ); 
+  left: 40px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .site-header .logo {
@@ -33,4 +31,26 @@
   font-size: 1.8rem;
   margin: 0;
   font-weight: bold;
+}
+@media (max-width: 768px) {
+  .site-header {
+    padding: 10px 0;
+    min-height: auto;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .site-header .logo-link {
+    position: static;
+    transform: none;
+    margin-top: 5px;
+  }
+
+  .site-header .logo {
+    height: 40px;
+  }
+
+  .site-header h1 {
+    font-size: 1.3rem;
+  }
 }

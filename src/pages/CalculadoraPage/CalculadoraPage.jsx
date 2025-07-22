@@ -1,5 +1,8 @@
 import React, { useState } from "react";
+import axios from "axios";
+import CurrencyInput from "../../components/CurrencyInput/CurrencyInput";
 import "./CalculadoraPage.css";
+import ResultsDisplay from "../../components/ResultsDisplay/ResultsDisplay";
 
 const CalculadoraPage = () => {
   const [formData, setFormData] = useState({
@@ -10,17 +13,42 @@ const CalculadoraPage = () => {
     data_inicio_pagamento: "",
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const [resultado, setResultado] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleStandardChange = (e) => {
+    const { name, value, type } = e.target;
     setFormData((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: type === "date" ? value : value === "" ? "" : parseFloat(value),
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleCurrencyChange = (value, name) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value === undefined ? "" : value,
+    }));
+  };
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Dados do formulário a serem enviados: ", formData);
+    setLoading(true);
+    setError("");
+    setResultado(null);
+
+    const apiUrl = `${import.meta.env.VITE_API_BASE_URL}/calculate`;
+
+    try {
+      const response = await axios.post(apiUrl, formData);
+      setResultado(response.data);
+    } catch (err) {
+      setError(
+        "Não foi possível calcular. Verifique se o backend está rodando ou se os dados estão corretos."
+      );
+    } finally {
+      setLoading(false);
+    }
 
     //CHAMAR A API
   };
@@ -28,34 +56,25 @@ const CalculadoraPage = () => {
     <div>
       <div className="calculadora-container">
         <h2>Simulador de Comissão</h2>
-        <p> Preencha todos os campos abaixo</p>
+        <p>Preencha os campos abaixo para simular o cálculo da comissão.</p>
 
-        <form className="comission-group" onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="" className="valor_plano">
-              Valor do Plano (R$)
-            </label>
-            <input
-              type="number"
-              id="valor_plano"
-              name="valor_plano"
-              onChange={handleChange}
-              placeholder="Ex: 5000"
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="valor_entrada">Valor da Entrada (R$)</label>
-            <input
-              type="number"
-              id="valor_entrada"
-              name="valor_entrada"
-              value={formData.valor_entrada}
-              onChange={handleChange}
-              placeholder="Ex: 1000"
-              required
-            />
-          </div>
+        <form className="commission-form" onSubmit={handleSubmit}>
+          <CurrencyInput
+            label="Valor do Plano (R$)"
+            name="valor_plano"
+            value={formData.valor_plano}
+            onValueChange={handleCurrencyChange}
+            placeholder="R$ 0,00"
+          />
+
+          <CurrencyInput
+            label="Valor da Entrada (R$)"
+            name="valor_entrada"
+            value={formData.valor_entrada}
+            onValueChange={handleCurrencyChange}
+            placeholder="R$ 0,00"
+          />
+
           <div className="form-group">
             <label htmlFor="percentual_comissao">
               Comissão do Vendedor (%)
@@ -65,8 +84,8 @@ const CalculadoraPage = () => {
               id="percentual_comissao"
               name="percentual_comissao"
               value={formData.percentual_comissao}
-              onChange={handleChange}
-              placeholder="Ex: 40"
+              onChange={handleStandardChange}
+              max="50"
               required
             />
           </div>
@@ -77,12 +96,10 @@ const CalculadoraPage = () => {
               id="numero_parcelas"
               name="numero_parcelas"
               value={formData.numero_parcelas}
-              onChange={handleChange}
-              placeholder="Ex: 10"
+              onChange={handleStandardChange}
               required
             />
           </div>
-
           <div className="form-group">
             <label htmlFor="data_inicio_pagamento">
               Data de Início do Pagamento
@@ -92,14 +109,22 @@ const CalculadoraPage = () => {
               id="data_inicio_pagamento"
               name="data_inicio_pagamento"
               value={formData.data_inicio_pagamento}
-              onChange={handleChange}
+              onChange={handleStandardChange}
             />
           </div>
 
-          <button type="submit" className="submit-btn">
-            Calcular
+          <button type="submit" className="submit-btn" disabled={loading}>
+            {loading ? "Calculando..." : "Calcular"}
           </button>
         </form>
+        <div className="results-section">
+          {loading && (
+            <p className="loading-message">Calculando, por favor aguarde...</p>
+          )}
+          {error && <p className="error-message">{error}</p>}
+
+          <ResultsDisplay data={resultado} />
+        </div>
       </div>
     </div>
   );
